@@ -49,7 +49,7 @@ const requestorderSchema = new mongoose.Schema({
 
     PaymentStatus: {
         type: String,
-        required: false,
+        default: 'unpaid',
         trim: true,
         unique: false,
         lowercase: true,

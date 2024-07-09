@@ -138,6 +138,52 @@ const createDriver = async (req, res) => {
     }
 }
 
+const updatePasswordDriver = async (req, res) => {
+    try {
+        const errors = validationResult(req);
+        if (!errors) {
+            return res.status(400).json({
+                success: false,
+                msg: "Error",
+                errors: errors.Array()
+            })
+        }
+        const {
+            password
+        } = req.body
+        const isExist = await Driver.findById(req.params._id)
+
+        if (!isExist) {
+            return res.status(400).json({
+                success: false,
+                msg: "Driver is not exists"
+            })
+        }
+
+        const hashPassword = await bcrypt.hash(password, 10)
+        const driverData = await Driver.findByIdAndUpdate(req.params._id, {
+            $set: {password: hashPassword},
+            updated_password:moment().format('YYYY-MM-DD HH:mm:ss'),
+        }, {
+            new: true
+        })
+
+
+        console.log(password)
+       
+
+        return res.status(200).json({
+            success: true,
+            msg: "Driver Update SuccessFull",
+            data: driverData
+        })
+    } catch (error) {
+        return res.status(400).json({
+            success: false,
+            msg: error.message
+        })
+    }
+}
 const getDriver = async (req, res) => {
     try {
         // console.log(req.user)
@@ -419,5 +465,6 @@ module.exports = {
     updateDriver,
     deleteDriver,
     getdriverById,
-    updateDriverProfile
+    updateDriverProfile,
+    updatePasswordDriver
 }

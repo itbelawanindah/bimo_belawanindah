@@ -1,12 +1,12 @@
 const helper = require('../helpers/helper');
 
-const checkPermission = async (req, res, next) => {
+const checkPermissionDriver = async (req, res, next) => {
     try {
-        if (req.driver.role != 1) {
+        if (req.driver.role != 1 && req.driver.role != 2) {
 
             
             const routerPermission = await helper.getRouterPermission(req.path, req.driver.role);
-            const driverPermissions = await helper.getUserPermissions(req.driver._id)
+            const driverPermissions = await helper.getDriverPermissions(req.driver._id)
 
             if (driverPermissions.permissions.permissions == undefined || !routerPermission) {
                 return res.status(400).json({

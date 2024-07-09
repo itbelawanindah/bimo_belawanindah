@@ -132,6 +132,12 @@ module.exports.deleteUserValidator =
      check('id', 'ID is required').not().isEmpty(),
      check('name', 'name is required').not().isEmpty(),
  ]
+ 
+ module.exports.updatepasswordValidator = 
+ [ 
+    
+     check('password', 'Password is required').not().isEmpty(),
+ ]
  module.exports.deleteDriverValidator = 
  [ 
      
