@@ -2,6 +2,17 @@ const mongoose = require('mongoose')
 
 const requestorderSchema = new mongoose.Schema({
     
+    customer_id: [{
+        type:mongoose.Schema.Types.ObjectId,
+        ref:'User',
+        required:true
+    }],
+    
+    driver_id: [{
+        type:mongoose.Schema.Types.ObjectId,
+        ref:'Driver',
+        required:true
+    }],
     items_id:[{
         type:mongoose.Schema.Types.ObjectId,
         ref:'Item',
@@ -15,7 +26,7 @@ const requestorderSchema = new mongoose.Schema({
         type:String,
         required:false
     },
-    pickup_address:{
+    origin:{
         type:String,
         required:false
     },
@@ -27,7 +38,7 @@ const requestorderSchema = new mongoose.Schema({
         type:String,
         required:false
     },
-    drop_address:{
+    destination:{
         type:String,
         required:false
     },
@@ -37,6 +48,18 @@ const requestorderSchema = new mongoose.Schema({
     },
     description:{
         type:String,
+        required:false
+    },
+    est_sub_total:{
+        type:Number,
+        required:false
+    },
+    est_vat:{
+        type:Number,
+        required:false
+    },
+    est_grand_total:{
+        type:Number,
         required:false
     },
     PriorityStatus: {
@@ -49,7 +72,7 @@ const requestorderSchema = new mongoose.Schema({
 
     PaymentStatus: {
         type: String,
-        default: 'unpaid',
+        required: false,
         trim: true,
         unique: false,
         lowercase: true,
@@ -71,11 +94,11 @@ const requestorderSchema = new mongoose.Schema({
         required:false
     },
     est_total_distance:{
-        type:String,
+        type:Number,
         required:false
     },
     est_duration:{
-        type:String,
+        type:Number,
         required:false
     },
     
@@ -88,23 +111,12 @@ const requestorderSchema = new mongoose.Schema({
         type:String,
         required:false
     },
-    created_by: [{
-        type:mongoose.Schema.Types.ObjectId,
-        ref:'User',
-        required:true
-    }],
-
-    updated_by: [{
-        type:mongoose.Schema.Types.ObjectId,
-        ref:'User',
-        required:true
-    }],
-
-    deleted_by: [{
-        type:mongoose.Schema.Types.ObjectId,
-        ref:'User',
-        required:true
-    }],
+    
+    cancel_at: {
+        type: Date,
+        required: false,
+    },
+    
     created_at: {
         type: Date,
         required: false,

@@ -162,7 +162,7 @@ module.exports.postlikeCountValidator =
 module.exports.requestorderValidator = 
 [ 
     
-    check('pickup_address', 'lokasi muat is required').not().isEmpty(),
-    check('drop_address', 'lokasi bongkar is required').not().isEmpty(),
+    check('origin', 'lokasi muat is required').not().isEmpty(),
+    check('destination', 'lokasi bongkar is required').not().isEmpty(),
     check('item_id', 'Item Order is required').not().isEmpty(),
 ]
